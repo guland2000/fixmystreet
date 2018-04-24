@@ -150,6 +150,29 @@ OpenLayers.Layer.VectorNearest = OpenLayers.Class(OpenLayers.Layer.VectorAsset, 
         }
     },
 
+    update_layer_visibility: function() {
+        if (!this.fixmystreet.always_visible) {
+            // Show/hide the asset layer when the category is chosen
+            var category = $('#problem_form select#form_category').val();
+            if (fixmystreet.assets.check_layer_relevant(this.fixmystreet, category)) {
+                this.setVisibility(true);
+                if (this.fixmystreet.fault_layer) {
+                    this.fixmystreet.fault_layer.setVisibility(true);
+                }
+                zoom_to_assets(this);
+            } else {
+                this.setVisibility(false);
+                if (this.fixmystreet.fault_layer) {
+                    this.fixmystreet.fault_layer.setVisibility(false);
+                }
+            }
+        } else {
+            if (fixmystreet.bodies && this.fixmystreet.body) {
+                this.setVisibility(fixmystreet.bodies.indexOf('' + this.fixmystreet.body) != -1 );
+            }
+        }
+    },
+
     CLASS_NAME: 'OpenLayers.Layer.VectorNearest'
 });
 
