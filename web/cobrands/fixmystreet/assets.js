@@ -432,6 +432,7 @@ fixmystreet.assets = {
     },
 
     add: function(options) {
+        fixmystreet.set_up.bodies();
         var asset_fault_layer = null;
 
         // An interactive layer for selecting an asset (e.g. street light)
