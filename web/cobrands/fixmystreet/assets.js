@@ -135,11 +135,13 @@ OpenLayers.Layer.VectorNearest = OpenLayers.Class(OpenLayers.Layer.VectorAsset, 
     },
 
     road_found: function() {
+        fixmystreet.do_not_send = {};
         if (this.fixmystreet.actions) {
             this.fixmystreet.actions.found(this, this.selected_feature);
         } else if (!fixmystreet.assets.selectedFeature()) {
             $('#single_body_only').val(this.fixmystreet.body);
         }
+        $(fixmystreet).trigger('assets:check_do_not_send');
     },
 
     road_not_found: function() {
